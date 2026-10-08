@@ -2,13 +2,13 @@
 
 ## 这是什么
 
-这是一个在 Windows 10 LTSC + WSL2 (Ubuntu) 环境下，将本地免费搜索服务（ai-search-mcp）通过 supergateway 桥接为 HTTP/StreamableHTTP 端点，同时供 Dify 和 DeepSeek Harness 调用的完整操作记录。内容涵盖架构说明、WSL2 安装 Node.js、ai-search-mcp 说明、supergateway 桥接、Dify 与 DSH 两端接入、自动启动脚本、故障排查与安全规范。
+这是一个在 Windows 10 LTSC + WSL2 (Ubuntu) 环境下，将本地免费搜索服务（ai-search-mcp）通过 supergateway 桥接为 HTTP/StreamableHTTP 端点，同时供本地支持MCP协议的应用例如： Dify 、 DeepSeek Harness 等调用的完整操作记录。内容涵盖架构说明、WSL2 安装 Node.js、ai-search-mcp 说明、supergateway 桥接、Dify 与 DSH 两端接入、自动启动脚本、故障排查与安全规范。
 
 ## 解决了什么问题
 
 - **搜索服务按次计费问题**：用免费的 ai-search-mcp 替代 Tavily 等按次计费的搜索 API，实现零成本联网搜索。
 - **MCP 协议不兼容问题**：ai-search-mcp 只支持 stdio 模式，通过 supergateway 桥接为 StreamableHTTP/SSE，Dify 和 DeepSeek Harness 都能调用。
-- **一次配置、多端复用**：同一套搜索服务同时供 Dify 和 DSH 使用，无需重复部署。
+- **一次配置、多端复用**：同一套搜索服务同时供 Dify 和 DSH 等支持MCP的工具使用，无需重复部署。
 - **国内网络直连**：通过 `SEARCH_REGION=cn-zh` 强制走 Bing、百度、360 等国内可直连引擎，无需代理。
 - **长连接会话保活**：supergateway 使用 `--stateful` 保持子进程常驻，避免 DSH 报 Connection error。
 - **自动化启动**：进入 WSL 终端时自动拉起服务，无需手动执行。
